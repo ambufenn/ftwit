@@ -1,0 +1,522 @@
+answer v2: revisi API ftwitter
+
+"info": {
+	"title" : "membuat twitter sederhana",
+	"description": "openAPI for ftwitter RERSTful API",
+	"version": "1",
+	"contact":{
+		"name": "fenira",
+		"email": "fenirathings@gmail.com",
+		"url": " " #(misal di isi link ig)
+		}
+
+	"license": {
+			#belum paham license apache dll , takut salah masukin license
+		}
+},
+
+"servers": [
+	{
+	"url": "https://{enviroment}.ftwitter.com/api/v1",  --->version 1 nya misal, after browsing v3 yg terupdate
+	"description": "simple social_media Restfull API server",
+	"variables":{
+		"enviroment": {
+			"default":"social_book",
+			"enum":[
+				"social_book",
+				]
+			}
+		}
+
+	}
+],
+
+
+ #sebetulnya masih need more explore nentuin mana operasi yang harusnya masuk ke path, query parameter, path variable, header, and cookie
+ but hopefully ga terlalu salah bgt hehe ... (esp : signup sign in masuk kategori yg mana)
+
+
+"paths": #referensi endpoint posisinya di sini
+	{
+	"/signup": {
+		"POST": {
+			"summary": "create new user account",
+			"descriptions": "create new user account to database",
+			"requestBody":
+				{
+				"required": "true",
+				"content":
+					{
+					"application/json":
+						{
+						"schema":
+							{
+							"type": "object",
+							"properties":
+								{
+				                 "username":
+									{
+				                     "type": "string",
+				                     "minlength": 1,
+									 "required":"true",
+								}
+								 "password":
+									{
+								     "type": "string+number",
+								     "minlength": 6,
+									 "required":"true",
+								}
+								"email":
+									{
+								     "type": "string+special case",
+								     #yet more detail requirments
+									 "required":"true",
+								},
+
+							},
+
+						},
+					},
+
+				},
+			},
+
+			"response":
+		},
+
+
+
+	},
+==================end of sign up================
+
+
+
+
+
+	"/signin": { #jika data di save di browser
+		"GET":{
+			"summary": "get all data from database",
+			"descriptions": "get all data after save signup success",
+
+			"parameters":[
+				{
+				 "name": "username",
+				 "descriptions": "" ,
+				 "required":"true",
+				 "in":  "query" ,
+			},
+				{
+				 "name": "password",
+				 "descriptions": "password terhidden" ,
+				 "required":"true",
+				 "in":  "query" ,
+			},
+
+			]
+		},
+
+
+		"POST": { #jika data tidak di save di browser
+			"summary": "input data for login",
+			"descriptions": "data must be same with signup data",
+			"requestBody":{
+				"required": "true",
+				"content":
+					{
+					"application/json":
+						{
+						"schema":
+							{
+							"type": "object",
+							"properties":
+								{
+				                 "username":
+									{
+				                     "type": "string",
+				                     "minlength": 1,
+									 "required":"true",
+								}
+								 "password":
+									{
+								     "type": "string+number",
+								     "minlength": 6,
+									 "required":"true",
+								}
+							},
+
+						},
+					},
+
+				},
+			}
+
+
+			"response":
+		},
+	}
+===========end of sign in=================
+
+
+
+	"/user/user_id" : {
+		"PUT": {
+			"summary": "setup profile",
+			"descriptions": "update bio to database",
+			"requestBody":
+				{
+				"required": "true",
+				"content":
+					{
+					"application/json":
+						{
+						"schema":
+							{
+							"type": "object",
+							"properties":
+								{
+								"self description":
+									{
+									"text":
+										{
+				                     	"type": "string",
+										"minlength": 1,
+										"required":"true",
+									}
+								}
+
+								"user_picture":
+									{
+								 	"image":
+										{
+								     	"type": "jpg, jpeg
+								     	"maxsize": 10mb
+									 	"required":"true",
+									}
+								}
+							},
+
+						},
+					},
+
+				}
+			}
+
+			"response":
+
+
+		},
+
+	},
+
+======================end of setup profile===================
+
+
+
+
+	"/tweets": {
+		"POST": {
+			"summary": "create new tweets",
+			"descriptions": "create new tweets to database",
+			"requestBody":{
+				"required": "true",
+				"content":
+					{
+					"application/json":
+						{
+						"schema":
+							{
+							"type": "object",
+							"properties":
+								{
+				                 "text":
+									{
+				                     "type": "string",
+				                     "minlength": 1,
+									 "required":"true",
+								}
+								 "image":
+									{
+								     "type": "jpg, jpeg
+								     "maxsize": 10mb
+									 "required":"true",
+								}
+							},
+
+						},
+					},
+
+				},
+			}
+
+
+			"response":
+		},
+
+
+		"GET":{
+			"summary": "get all tweets",
+			"descriptions": "get all active tweets by default",
+
+			"parameters":[ --->misal
+				{
+				 "name": "tweets",    --> tweets
+				 "descriptions": "collect tweets" ,   ---> collect tweets
+				 "required":"true or false",     --> true
+				 "in":  "query or other" ,         ---> query
+			     "schema":{                  #schema validation --> for requirments
+					"type":""	 #boolean/string/number
+					"default": ""	#follow the type
+				    "nullable"  (di isi number)
+				    "maxlenght":  (kriteria requirments for detail is here)
+				 },
+
+				},
+
+			]
+		},
+	},
+===========end of post tweet===============
+
+
+
+
+
+
+	"/tweets/tweet_id" : {
+		"PUT": {
+			"summary": "update existing tweets",
+			"descriptions": "update existing tweets to database",
+			"requestBody":
+				{
+				"required": "true",
+				"content":
+					{
+					"application/json":
+						{
+						"schema":
+							{
+							"type": "object",
+							"properties":
+								{
+				                 "text":
+									{
+				                     "type": "string",
+				                     "minlength": 1,
+									 "required":"true",
+								}
+								 "image":
+									{
+								     "type": "jpg, jpeg
+								     "maxsize": 10mb
+									 "required":"true",
+								}
+							},
+
+						},
+					},
+
+				}
+			}
+
+			"response":
+
+
+		},
+
+
+
+		"DELETE": {
+			"summary": "delete existing tweets",
+			"descriptions": "delete existing tweets in database",
+			"response":
+			"parameters":[
+				{
+				 "name": "tweet_id",
+				 "descriptions": "tweet_id for deleted",
+				 "required":"true",
+				 "in":  "path"
+				}
+			],
+		},
+	},
+
+ ========end of editing tweets============
+
+
+ },    ======#end of path====
+
+
+#for logout still confuse how to write the api
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------jawaban sebelum di revisi-------------------------------------------------------------
+
+answer v1:
+
+{root.api}/{version}/{grouping}/{endpoint}
+
+sample : https://api.ftwitter.com/v1/auth/login
+
+standart status response
+200 -- Ok	 		-- call API success
+201 -- CREATED 		-- post success
+400 -- BAD REQUEST 		-- error on client side (input data salah , misal)
+401 -- Anauthorized 		-- user not authorized to request (missing steps behind_
+403 -- Forbiden 		-- user not allow to access
+404 --	Not found 		-- request endpoint not found
+500 -- Internal server error 	-- error on server side
+502 -- Bad gateway 		-- invalid response from another request
+
+
+
+
+Group : Authentification
+
+1. -register  ---done revisi
+https://api.ftwitter.com/v1/auth/register
+
+req:{
+	"username" = "testing_2",
+	"email" = "test@email.com",
+	"password" = "abc_123"
+	"verify" = "TflPc"
+
+
+}
+
+
+res: {
+	"massage": "registration success",
+	"data:{
+		"id" : 1,
+		"username" = "testing_2",
+		"email" = "test@email.com",
+		"password" = "abc_123"
+		"verify" = "TflPc"
+		}
+}
+
+
+err-response : 200
+
+
+2. -login  --- done revisi
+https://api.ftwitter.com/v1/auth/login
+req:{
+	"username" = "testing_2",
+	"email" = "test@email.com",
+	"password" = "abc_123"
+	"verify" = "TflPc"
+
+
+}
+
+
+res: {
+	"massage": "registration success",
+	"data:{
+		"id" : 1,
+		"username" = "testing_2",
+		"email" = "test@email.com",
+		"password" = "abc_123"
+		"verify" = "TflPc"
+		}
+}
+
+
+err-response : 200
+
+
+
+
+
+Group : Main
+
+3. setup profile
+
+https://api.ftwitter.com/v1/main/setupprofile
+req:{
+	"upload picture"= "foto.jpeg",
+	"description bio" = " aku adalah pengembara, mendaki gunung lewati lembah, akulah ninja hatori",
+
+
+}
+
+
+res: {
+	"massage": "setup proffile success",
+	"data:{
+		"upload picture"= "foto.jpeg",
+		"description bio" = " aku adalah pengembara, mendaki gunung lewati lembah, akulah ninja hatori",
+
+		}
+}
+
+
+err-response : 200
+
+
+
+
+
+
+
+Group : Blog
+
+4. upload tweets   --- done
+
+https://api.ftwitter.com/v1/blog/uploadtweets
+req:{
+	"text": "hari ini masak jengkol donk!",
+	"picture": "jengkol.png",
+	"video": "jengkol.mp4"
+
+
+}
+
+
+res: {
+	"massage": "uploading tweets success",
+	"data:{
+		"text": "hari ini masak jengkol donk!",
+		"picture": "jengkol.png",
+		"video": "jengkol.mp4"
+		}
+}
+
+
+err-response : 200
+
+
+
+   setup profile n logout blom
+
+
+

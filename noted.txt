@@ -1,0 +1,64 @@
+
+python3 manage.py runserver
+python3 manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py createsuperuser
+
+Username (leave blank to use 'hatta'): admin
+Email address: admin@ftwitter.com
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+This password is entirely numeric.
+Bypass password validation and create user anyway? [y/N]: n
+Password: 123admin123
+Password (again):
+Superuser created successfully.
+
+bug :
+Error: That port is already in use
+try this :
+python3 manage.py runserver 8001
+
+works!!!!
+
+di sign up ada yg masi rancu redirect ke setting/signin/signup.....
+solve 1.52 setelah settings di munculkan
+
+
+
+for usename latihan: username;password
+jonkeren1
+joni1234
+
+untuk logout di index.html masi blm redirect to sign in, edit lagi ya
+1.45
+tersolve dengan hapus help dkk plus pake @login_required(login_url='signin')
+
+views: @login_required(login_url='signin')
+def logout(request):
+    auth.logout(request)
+    return redirect('signin')
+
+ure core =  path('signin', views.signin, name='logout'),
+krn akan balik ke sign in , pathnya mesti back to sign in. ok paham
+
+setting akun 1.47.58
+masi trouble
+tersolve
+perhatikan s settings atau setting. okeeehh. salah penulisan jadi ribet
+klo salah ulang dr 2.04.54
+
+after i search info2 apa si setting html kudu di form kan ya bbrp item yg bisa di uodate itu ? ngaruh g ya?
+
+ok deh lanjut ke post dl aja 2.17.02
+
+git version 2.38.1
+cara update git
+sudo add-apt-repository -y ppa:git-core/ppa
+sudo apt-get update
+sudo apt-get install git -y
+
+
+
